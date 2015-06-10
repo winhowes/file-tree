@@ -1,0 +1,67 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 Winston Howes. All rights reserved.
+This code may only be used under the MIT license found at https://github.com/winhowes/file-tree/blob/master/LICENSE
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>file-tree Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../file-tree.html">
+  </head>
+  <body>
+
+    <p>An example of <code>&lt;file-tree&gt;</code>:</p>
+
+    <file-tree></file-tree>
+
+    <script>
+      document.querySelector("file-tree").data = {
+        "name": "Tree B",
+        "open": true,
+        "shared": false,
+        "children": [
+          {
+            "name": "Child A",
+            "open": true,
+            "shared": false,
+            "children": [{
+              "name": "Grandchild A"
+            }]
+          },
+          {
+            "name": "Child B",
+            "shared": true,
+            "open": false,
+            "children": [{
+              "name": "Grandchild B",
+              open: false,
+              "children": [{
+                "name": "Great Grandchild B"
+              }]
+            }]
+          },
+          {
+            "name": "Child C",
+            "shared": false,
+            "open": false,
+            "children": [{
+              "name": "Grandchild C"
+            }]
+          },
+          {
+            "name": "Child D",
+            "shared": false,
+            "open": false,
+            "children": [{
+              "name": "Grandchild D"
+            }]
+          }
+        ]
+      };
+    </script>
+  </body>
+</html>

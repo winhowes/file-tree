@@ -1,0 +1,120 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 Winston Howes. All rights reserved.
+This code may only be used under the MIT license found at https://github.com/winhowes/file-tree/blob/master/LICENSE
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <!-- Step 1: import the element to test -->
+    <link rel="import" href="../file-tree.html">
+      <link rel="import" href="../file-folder.html">
+  </head>
+  <body>
+
+    <!-- You can use the document as a place to set up your fixtures. -->
+    <file-tree></file-tree>
+
+    <script>
+      var myEl = document.querySelector('file-tree');
+      var folder = document.querySelector('file-folder');
+
+      suite('<file-tree>', function() {
+
+        test('defines the "data" property', function() {
+          assert.deepEqual(myEl.data, {});
+        });
+
+        test('defines the "selected" property', function() {
+          assert.equal(myEl.selected, null);
+        });
+
+        test('_selectFolder function works', function() {
+          var found = false;
+          myEl._selectFolder({target: document.body});
+          for(var i=0; i<folder.classList.length; i++){
+            if(folder.classList[i] == "selected") {
+              found = true;
+              break;
+            }
+          }
+          assert.equal(found, false);
+          assert.equal(document.body.className, "selected");
+          myEl._selectFolder({target: folder});
+          assert.equal(document.body.className, "");
+          for(var i=0; i<folder.classList.length; i++){
+            if(folder.classList[i] == "selected") {
+              found = true;
+              break;
+            }
+          }
+          assert.equal(found, true);
+        });
+
+      });
+      
+      suite('<file-tree>', function() {
+
+        test('defines the "data" property', function() {
+          assert.deepEqual(folder.data, {});
+        });
+
+        test('_determineClass', function() {
+          var answer = folder._determineClass(true, []);
+          assert.equal(answer, "parent ");
+          
+          answer = folder._determineClass(false, []);
+          assert.equal(answer, "parent ");
+          
+          answer = folder._determineClass(false, [1]);
+          assert.equal(answer, "parent collapsed");
+          
+          answer = folder._determineClass(true, [1]);
+          assert.equal(answer, "parent expanded");
+        });
+        
+        test('_determineIcon', function() {
+          var answer = folder._determineIcon(true);
+          assert.equal(answer, "folder-shared");
+          
+          answer = folder._determineIcon(false);
+          assert.equal(answer, "folder");
+        });
+
+        test('select Folder', function(done) {
+          myEl.addEventListener('folderSelected', function(event) {
+            assert.equal(event.detail, folder);
+            done();
+          });
+          folder.selectFolder();
+        });
+        
+         test('toggle children', function() {
+          folder["data"]["children"] = [];
+          folder["data"]["open"] = false;
+          folder.toggleChildren();
+          assert.equal(folder.data.open, false);
+          
+          folder.data.open = true;
+          folder.toggleChildren();
+          assert.equal(folder.data.open, false);
+          
+          folder.data.children = [1];
+          folder.toggleChildren();
+          assert.equal(folder.data.open, true);
+          
+          folder.toggleChildren();
+          assert.equal(folder.data.open, false);
+        });
+
+      });
+    </script>
+
+  </body>
+</html>

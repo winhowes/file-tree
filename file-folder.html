@@ -1,0 +1,140 @@
+<!--
+@license
+Copyright (c) 2015 Winston Howes. All rights reserved.
+This code may only be used under the MIT license found at https://github.com/winhowes/file-tree/blob/master/LICENSE
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element acting as a folder with other folders inside of it.
+
+Example:
+
+    <file-folder></file-folder>
+
+@demo
+-->
+
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<dom-module id="file-folder">
+  
+  <style>
+    :host.selected > .thisFolder > .folderTitle{
+      background-color: rgba(31, 141, 214, 0.4);
+      border: 1px solid rgba(31, 141, 214, 0.7);
+      border-radius: 5px;
+    }
+    
+    .parent.collapsed:before {
+      content: '+ ';
+      padding: 5px;
+    }
+    
+    .parent.expanded:before {
+      content: '- ';
+      padding: 5px;
+    }
+    
+    .parent, .name {
+      cursor: pointer;
+    }
+    
+    ul {
+      margin: 0;
+    }
+    
+    li {
+      list-style-type: none;
+    }
+    
+    iron-icon {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+    
+    [hidden] {
+      display: none;
+    }
+  </style>
+
+  <template>
+    <div class="thisFolder">
+      <div class="folderTitle">
+        <span class$="{{_determineClass(data.open, data.children)}}" on-click="toggleChildren">
+          <iron-icon icon$="{{_determineIcon(data.shared)}}"></iron-icon>
+        </span>
+        <span class="name" on-click="selectFolder">{{data.name}}</span>
+      </div>
+      <ul hidden$={{!data.open}}>
+        <template is="dom-repeat" items="{{data.children}}">
+          <li>
+            <file-folder data="{{item}}"></file-folder>
+          </li>
+        </template>
+      </ul>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'file-folder',
+
+    properties: {
+
+      /**
+       * `data` is the data to be used for the tree.
+       */
+      data: {
+        type: Object,
+        value: {}
+      },
+
+    },
+    
+    /**
+     * The `folderSelected` event is fired whenever `selectFolder` is called.
+     *
+     * @event folderSelected
+     */
+    
+    /**
+     * Returns the necessary classes.
+     *
+     * @param {boolean}, whether or not the folder is open
+    */
+    _determineClass: function(open, children) {
+      return 'parent ' + ((open && children && children.length) ? 'expanded' : children && children.length ? 'collapsed' : '');
+    },
+    
+    /**
+     * Returns the necessary folder icon.
+     *
+     * @param {boolean}, whether or not the folder is shared
+    */
+    _determineIcon: function(shared) {
+      return shared ? 'folder-shared' : 'folder';
+    },
+    
+    /**
+     * Highlights folder as the selected folder.
+    */
+    selectFolder: function(e) {
+      this.fire("folderSelected", this);
+    },
+    
+    /**
+     * Toggles the children nodes on or off.
+    */
+    toggleChildren: function(e) {
+      this.set("data.open", !this.data.open && this.data.children && this.data.children.length);
+    }
+
+  });
+
+</script>
