@@ -20,6 +20,7 @@ This code may only be used under the MIT license found at https://github.com/win
 
     <!-- You can use the document as a place to set up your fixtures. -->
     <file-tree></file-tree>
+    <file-folder></file-folder>
 
     <script>
       var myEl = document.querySelector('file-tree');
@@ -33,6 +34,12 @@ This code may only be used under the MIT license found at https://github.com/win
 
         test('defines the "selected" property', function() {
           assert.equal(myEl.selected, null);
+        });
+        
+        test('_dataChanged', function() {
+          myEl.data = {name: "Documents"};
+          myEl._dataChanged();
+          assert.equal(myEl.$.topFolder.data, myEl.data);
         });
 
         test('_selectFolder function works', function() {
@@ -59,7 +66,7 @@ This code may only be used under the MIT license found at https://github.com/win
 
       });
       
-      suite('<file-tree>', function() {
+      suite('<file-folder>', function() {
 
         test('defines the "data" property', function() {
           assert.deepEqual(folder.data, {});
@@ -89,10 +96,10 @@ This code may only be used under the MIT license found at https://github.com/win
 
         test('select Folder', function(done) {
           myEl.addEventListener('folderSelected', function(event) {
-            assert.equal(event.detail, folder);
+            assert.equal(event.detail, myEl.$.topFolder);
             done();
           });
-          folder.selectFolder();
+          myEl.$.topFolder.selectFolder();
         });
         
          test('toggle children', function() {

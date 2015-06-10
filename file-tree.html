@@ -25,7 +25,7 @@ Example:
 
   <template>
     <div>
-    <file-folder data="{{data}}"></file-folder>
+    <file-folder id="topFolder" data="{{data}}"></file-folder>
     </div>
   </template>
 
@@ -44,7 +44,8 @@ Example:
       */
       data: {
         type: Object,
-        value: {}
+        value: {},
+        observe: "_dataChanged"
       },
 
       /**
@@ -61,6 +62,13 @@ Example:
     },
     
     /**
+     * Called whenever the data is changed to notify the lower folders
+    */
+    _dataChanged: function()  {
+      this.$.topFolder.data = this.data;
+    },
+    
+    /**
      * Called when the `folderSelected` event is fired from an internal folder.
      *
      * @param {object}, an event object
@@ -71,6 +79,10 @@ Example:
       }
       this.selected = e.target;
       this.toggleClass("selected", true, this.selected);
+    },
+    
+    ready: function() {
+      this._dataChanged();
     }
 
   });
