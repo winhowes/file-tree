@@ -9,5 +9,7 @@ Check out the demo and docs here: https://winhowes.github.io/file-tree/component
 # Installation
 To install simply run:
 ```
-bower install --save file-tree
+bower install --save winhowes-file-tree
 ```
+# Use
+Simply include `<link rel="import" href="/components/winhowes-file-tree/file-tree.html">` in your page.
