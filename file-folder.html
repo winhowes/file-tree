@@ -18,42 +18,42 @@ Example:
 <link rel="import" href="../iron-icons/iron-icons.html">
 
 <dom-module id="file-folder">
-  
+
   <style>
     :host.selected > .thisFolder > .folderTitle{
       background-color: rgba(31, 141, 214, 0.4);
       border: 1px solid rgba(31, 141, 214, 0.7);
       border-radius: 5px;
     }
-    
+
     .parent.collapsed:before {
       content: '+ ';
       padding: 5px;
     }
-    
+
     .parent.expanded:before {
       content: '- ';
       padding: 5px;
     }
-    
+
     .parent, .name {
       cursor: pointer;
     }
-    
+
     ul {
       margin: 0;
     }
-    
+
     li {
       list-style-type: none;
     }
-    
+
     iron-icon {
       cursor: pointer;
       width: 24px;
       height: 24px;
     }
-    
+
     [hidden] {
       display: none;
     }
@@ -92,17 +92,19 @@ Example:
        */
       data: {
         type: Object,
-        value: {}
+        value: function() {
+          return {};
+        }
       },
 
     },
-    
+
     /**
      * The `folderSelected` event is fired whenever `selectFolder` is called.
      *
      * @event folderSelected
      */
-    
+
     /**
      * Returns the necessary classes.
      *
@@ -111,7 +113,7 @@ Example:
     _determineClass: function(open, children) {
       return 'parent ' + ((open && children && children.length) ? 'expanded' : children && children.length ? 'collapsed' : '');
     },
-    
+
     /**
      * Returns the necessary folder icon.
      *
@@ -120,14 +122,14 @@ Example:
     _determineIcon: function(shared) {
       return shared ? 'folder-shared' : 'folder';
     },
-    
+
     /**
      * Highlights folder as the selected folder.
     */
     selectFolder: function(e) {
       this.fire("folderSelected", this);
     },
-    
+
     /**
      * Toggles the children nodes on or off.
     */

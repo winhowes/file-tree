@@ -18,9 +18,9 @@ Example:
 <link rel="import" href="file-folder.html">
 
 <dom-module id="file-tree">
-  
+
   <style>
-    
+
   </style>
 
   <template>
@@ -44,7 +44,9 @@ Example:
       */
       data: {
         type: Object,
-        value: {},
+        value: function() {
+          return {};
+        },
         observe: "_dataChanged"
       },
 
@@ -56,18 +58,18 @@ Example:
         value: null
       }
     },
-    
+
     listeners: {
       "folderSelected": "_selectFolder"
     },
-    
+
     /**
      * Called whenever the data is changed to notify the lower folders
     */
     _dataChanged: function()  {
       this.$.topFolder.data = this.data;
     },
-    
+
     /**
      * Called when the `folderSelected` event is fired from an internal folder.
      *
@@ -80,7 +82,7 @@ Example:
       this.selected = e.target;
       this.toggleClass("selected", true, this.selected);
     },
-    
+
     ready: function() {
       this._dataChanged();
     }
