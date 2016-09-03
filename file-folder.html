@@ -108,7 +108,9 @@ Example:
     /**
      * Returns the necessary classes.
      *
-     * @param {boolean}, whether or not the folder is open.
+     * @param {boolean} open Whether or not the folder is open.
+     * @param {Array} children An array of folder objects
+     * @return {string} The class name indicating whether the folder is open or closed
     */
     _determineClass: function(open, children) {
       return 'parent ' + ((open && children && children.length) ? 'expanded' : children && children.length ? 'collapsed' : '');
@@ -117,7 +119,8 @@ Example:
     /**
      * Returns the necessary folder icon.
      *
-     * @param {boolean}, whether or not the folder is shared.
+     * @param {boolean} shared Whether or not the folder is shared.
+     * @return {string} A string indicating whether or not the folder is "shared".
     */
     _determineIcon: function(shared) {
       return shared ? 'folder-shared' : 'folder';
