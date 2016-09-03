@@ -108,7 +108,7 @@ Example:
     /**
      * Returns the necessary classes.
      *
-     * @param {boolean}, whether or not the folder is open
+     * @param {boolean}, whether or not the folder is open.
     */
     _determineClass: function(open, children) {
       return 'parent ' + ((open && children && children.length) ? 'expanded' : children && children.length ? 'collapsed' : '');
@@ -117,7 +117,7 @@ Example:
     /**
      * Returns the necessary folder icon.
      *
-     * @param {boolean}, whether or not the folder is shared
+     * @param {boolean}, whether or not the folder is shared.
     */
     _determineIcon: function(shared) {
       return shared ? 'folder-shared' : 'folder';
@@ -126,14 +126,14 @@ Example:
     /**
      * Highlights folder as the selected folder.
     */
-    selectFolder: function(e) {
+    selectFolder: function() {
       this.fire("folderSelected", this);
     },
 
     /**
      * Toggles the children nodes on or off.
     */
-    toggleChildren: function(e) {
+    toggleChildren: function() {
       this.set("data.open", !this.data.open && this.data.children && this.data.children.length);
     }
 
