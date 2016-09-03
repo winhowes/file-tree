@@ -1,0 +1,92 @@
+<!--
+@license
+Copyright (c) 2015 Winston Howes. All rights reserved.
+This code may only be used under the MIT license found at https://github.com/winhowes/file-tree/blob/master/LICENSE
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element displaying a file tree.
+
+Example:
+
+    <file-tree></file-tree>
+
+@demo
+-->
+
+<link rel="import" href="file-folder.html">
+
+<dom-module id="file-tree">
+
+  <style>
+
+  </style>
+
+  <template>
+    <div>
+    <file-folder id="topFolder" data="{{data}}"></file-folder>
+    </div>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'file-tree',
+
+    properties: {
+
+      /**
+       * `data` is the data to be used for the tree.
+      */
+      data: {
+        type: Object,
+        value: function() {
+          return {};
+        },
+        observe: "_dataChanged"
+      },
+
+      /**
+       * `selected` is the selected folder.
+      */
+      selected: {
+        type: Object,
+        value: null
+      }
+    },
+
+    listeners: {
+      "folderSelected": "_selectFolder"
+    },
+
+    /**
+     * Called whenever the data is changed to notify the lower folders.
+    */
+    _dataChanged: function()  {
+      this.$.topFolder.data = this.data;
+    },
+
+    /**
+     * Called when the `folderSelected` event is fired from an internal folder.
+     *
+     * @param {object} e An event object
+    */
+    _selectFolder: function(e) {
+      if(this.selected) {
+        this.toggleClass("selected", false, this.selected);
+      }
+      this.selected = e.target;
+      this.toggleClass("selected", true, this.selected);
+    },
+
+    ready: function() {
+      this._dataChanged();
+    }
+
+  });
+
+</script>

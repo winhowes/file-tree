@@ -1,0 +1,36 @@
+{
+  "name": "file-tree",
+  "version": "1.0.4",
+  "authors": [
+    "Winston Howes <winstonhowes@gmail.com>"
+  ],
+  "description": "An element displaying a file tree.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "file",
+    "tree",
+    "treeview"
+  ],
+  "main": "file-tree.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/winhowes/file-tree/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/",
+    "/bower_components/"
+  ],
+  "dependencies": {
+    "polymer": "^1.6.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.1.7",
+    "web-component-tester": "*"
+  },
+  "resolutions": {
+    "async": "^1.5.0",
+    "chai": "^3.2.0"
+  }
+}
